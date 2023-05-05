@@ -2,7 +2,6 @@ let squares = document.querySelectorAll('.square');
 let colorname = document.querySelector('.colorname');
 let indicator = document.querySelector('.indicator');
 let score = document.getElementById('scorevalue');
-let button = document.getElementById('next');
 let colors = [];
 let scorevalue = 0;
 function init(){
@@ -58,12 +57,4 @@ function reset(){
     })
 }
 init();
-button.addEventListener('click',()=>{
-    colors=[];
-    resetcolor();
-    randomnum();
-    guessingcolor();
-    reset();
-    indicator.textContent = "Guess the Color";
-})
 // console.log(colors);
