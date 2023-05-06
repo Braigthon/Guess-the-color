@@ -3,58 +3,50 @@ let colorname = document.querySelector('.colorname');
 let indicator = document.querySelector('.indicator');
 let score = document.getElementById('scorevalue');
 let colors = [];
+let colortobeguessed;
 let scorevalue = 0;
-function init(){
-    resetcolor();
-    guessingcolor();
-    reset();
-}
-function resetcolor(){
+
+
+function change_color(){
     squares.forEach((element,index)=>{
-        colors.push(randomcolor());
-        element.style.backgroundColor = colors[index];
+        element.style.backgroundColor = randomcolor();
     })
 }
-function guessingcolor(){
-    return colors[randomnum()];
+//select the color to be guessed
+function select_color(){
+    let select_color = Math.floor(Math.random()*colors.length)
+    colortobeguessed 
+    return colors[select_color];
 }
-function randomnum(){
-   return Math.floor(Math.random()*colors.length)
-}
+
 function randomcolor(){
     return `rgb(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)})`;
 }
-function reset(){
-    let colortobeguessed = guessingcolor();
-    colorname.textContent =colortobeguessed;
-    squares.forEach(element=>{
-        element.addEventListener('click',()=>{
-            if(element.style.backgroundColor == colortobeguessed){
-                // console.log('Correct');
-                scorevalue++;
-                indicator.textContent = "Correct";
-                score.innerHTML = "&nbsp" + scorevalue;
-                colors=[];
-            resetcolor();
-            randomnum();
-            guessingcolor();
-            reset();
-            indicator.textContent = "Guess the Color";
-            }else{
-                // console.log('incorrect');
-                indicator.textContent = "Incorrect";
-                resetcolor();
-                randomnum();
-                guessingcolor();
-                reset();
-                indicator.textContent = "Guess the Color";
-            }if(scorevalue == 5){
-                alert("you win")
-                scorevalue = 0;
-                score.innerHTML = "&nbsp" + scorevalue;
-            }
-        })
+
+function init(){
+    squares.forEach(escuarre=>{
+        escuarre.addEventListener('click', get_new_colors);
     })
+        
+
+}
+
+function get_new_colors(){
+    change_color();
+    colortobeguessed = select_color();
+
+}
+
+
+function reset(){
+
+    if(scorevalue == 5){
+        get_new_colors();
+        alert("you win")
+        scorevalue = 0;
+        score.innerHTML = "&nbsp" + scorevalue;
+    }
 }
 init();
+get_new_colors();
 // console.log(colors);
